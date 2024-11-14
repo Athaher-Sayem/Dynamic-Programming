@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int Rod_cutting(int length[],int price[],int size,int Rod_length){
+    
+    int matrix[size+1][Rod_length+1];
+    
+    for(int i=0;i<=size;i++){
+        for(int j=0;j<=Rod_length;j++){
+            
+            if(i==0 || j==0)
+                matrix[i][j]=0;
+                
+            else if (length[i-1]<=j){
+                matrix[i][j]=max(price[i-1]+matrix[i][j-length[i-1]],matrix[i-1][j]);
+            }
+            else 
+                matrix[i][j]=matrix[i-1][j];
+            
+        }
+    }
+    
+    return matrix[size][Rod_length];
+    
+}
+
+
+
+int main() {
+    
+    int length[]={1,2,3};
+    int price[]={3,5,8};
+    int size=3;
+    int Rod_length=4;
+    
+    int result=Rod_cutting(length,price,size,Rod_length);
+    
+    cout<<result<<endl;
+    
+    
+    
+}
